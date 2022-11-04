@@ -42,12 +42,9 @@ def read():
         for doc in docs:
             dict = doc.to_dict()                
             if cond in dict["Course"]:
-                return"選修課程內容:{}".format(doc.to_dict())+"<br>"
+                return (dict["Leacture"]+"老師開的"+dict["Course"]+"課程,"+"每周"+dict["Time"]+"於"+dict["Room"]+"上課").format(doc.to_dict())+"<br>"
             else:
                 return render_template("course.html")
 
 
-
-#if __name__ == "__main__":
- #   app.run()
 
