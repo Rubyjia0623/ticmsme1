@@ -1,11 +1,18 @@
-from flask import Flask, render_template, request
+import firebase_admin
+from firebase_admin import credentials, firestore
+cred = credentials.Certificate("serviceAccountKey.json")
+firebase_admin.initialize_app(cred)
+db = firestore.client()
 
+from flask import Flask, render_template, request
+from datetime import datetime, timezone, timedelta
 app = Flask(__name__)
 
 @app.route("/")
 def index():
     homepage = "<h1>張佳慧的網頁</h1>"
     homepage += "<a href=/all>請點此進入</a><br>"
+    homepage += "<br><a href=/read>讀取Firestore資料</a><br>"
     return homepage
 
 
@@ -24,6 +31,15 @@ def work():
 @app.route("/future")
 def future():
     return render_template("future.html")
+
+@app.route("/read")
+def read():
+    Result = ""     
+    collection_ref = db.collection("靜宜資管")    
+    docs = collection_ref.order_by("mail", direction=firestore.Query.DESCENDING).get()    
+    for doc in docs:         
+        Result += "文件內容：{}".format(doc.to_dict()) + "<br>"    
+    return Result
 
 #if __name__ == "__main__":
  #   app.run()
