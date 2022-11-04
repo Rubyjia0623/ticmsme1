@@ -34,6 +34,7 @@ def future():
 
 @app.route("/read",methods=["GET","POST"])
 def read():
+    result=""
     if request.method == "POST":
         cond= request.form["cond"]
 
@@ -42,7 +43,8 @@ def read():
         for doc in docs:
             dict = doc.to_dict()                
             if cond in dict["Course"]:
-                return (dict["Leacture"]+"老師開的"+dict["Course"]+"課程,"+"每周"+dict["Time"]+"於"+dict["Room"]+"上課").format(doc.to_dict())+"<br>"
+                result+=(dict["Leacture"]+"老師開的"+dict["Course"]+"課程,"+"每周"+dict["Time"]+"於"+dict["Room"]+"上課").format(doc.to_dict())+"<br>"
+                return result
             else:
                 return render_template("course.html")
 
