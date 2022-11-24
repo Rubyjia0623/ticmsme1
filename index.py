@@ -75,7 +75,7 @@ def movie():
         for doc in docs:
             dict = doc.to_dict()
             if cond3 in dict["title"]:
-                result += "片名:" + dict["title"] +dict["hyperlink"] "<br>"
+                result += "片名:" + dict["title"] +dict["hyperlink"]+ "<br>"
                 result += "電影分級:" + dict["rate"] + "<br>"
 
         if result == "":
