@@ -82,9 +82,6 @@ def movie():
         return result
     else:
         return render_template("movie.html")
-
-<a href=http://www.atmovies.com.tw/movie/fctw75443043/>title</a>
-    return title
 #if __name__ == "__main__":
  #   app.run()
 
